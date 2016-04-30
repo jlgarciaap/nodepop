@@ -5,10 +5,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
+
+//tema de base de datos
+require('./lib/connect_Mongoose');
+//cargamos el modelo de la base de datos
+require('./models/Anuncio');
+require('./models/Pushtoken');
+require('./models/User');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -20,10 +25,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public/images/anuncios')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+app.use('/', require('./routes/index'));
+app.use('/users', require('./routes/api/v1/users'));
+app.use('/register', require('./routes/api/v1/register'));
+app.use('/login', require('./routes/api/v1/login'));
+app.use('/anuncios', require('./routes/api/v1/anuncios'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
