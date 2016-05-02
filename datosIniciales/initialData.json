@@ -1,0 +1,35 @@
+
+ {
+   "usuarios":
+       {
+         "nombre": "popAdmin",
+         "email": "popadmin@nodepop.com",
+         "clave": 123456
+       }
+     ,
+     "anuncios": [
+       {
+         "nombre": "Bicicleta",
+         "venta": true,
+         "precio": 230.15,
+         "foto": "../public/images/anuncios/bicicleta.jpg",
+         "tags": [
+           "lifestyle",
+           "motor"
+         ]
+       },
+       {
+         "nombre": "iphone 3GS",
+         "venta": false,
+         "precio": 50.00,
+         "foto": "../public/images/anuncios/iphone.png",
+         "tags": [
+           "lifestyle",
+           "mobile"
+         ]
+       }
+     ]
+   }
+
+
+
