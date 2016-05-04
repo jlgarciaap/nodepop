@@ -7,6 +7,13 @@ var mongoose = require('mongoose');
 var Anuncio = mongoose.model('Anuncio');
 
 //------------------------------------------------------------------//
+    //Autenticacion
+
+var jwtAuth = require('../../../lib/jwtAuth');
+
+router.use(jwtAuth());
+
+//----------------------------------------------------------------//
 
 router.get('/', function(req, res, next){
 

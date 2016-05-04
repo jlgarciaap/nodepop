@@ -19,6 +19,7 @@ require('./models/User');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -29,7 +30,6 @@ app.use(express.static(path.join(__dirname, 'public/images/anuncios')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/index'));
-app.use('/users', require('./routes/api/v1/users'));
 app.use('/register', require('./routes/api/v1/register'));
 app.use('/login', require('./routes/api/v1/login'));
 app.use('/anuncios', require('./routes/api/v1/anuncios'));
