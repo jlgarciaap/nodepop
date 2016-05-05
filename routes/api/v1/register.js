@@ -9,11 +9,11 @@ var Register = mongoose.model('User');
 var hash= require('hash.js');
 
 /* GET home page. */
-router.post('/', function(req, res, next) {
+router.post('/', function(req, res) {
 
     var register = new Register(req.body);
     
-    register.clave = hash.sha512().update(register.clave).digest('hex')
+    register.clave = hash.sha512().update(register.clave).digest('hex');
 
     register.save(function(err, saved){
         

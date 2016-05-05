@@ -27,7 +27,7 @@ router.post('/', function(req, res) {
             return res.status(500).json({success: false, error:'Auth failed invalid password'});
         }
         //Pasado t odo esto significa que ha funcionado, devolvemos token de auth
-        var token = jwt.sign({id: user1._id}, secret.jwt.secret, {expiresIn: "2days"});
+        var token = jwt.sign({id:user1._id}, secret.jwt.secret, {expiresIn: "2days"});
         
         res.json({success:true, token: token});
     });

@@ -15,11 +15,11 @@ router.use(jwtAuth());
 
 //----------------------------------------------------------------//
 
-router.get('/', function(req, res, next){
+router.get('/', function(req, res){
 
     var nombre = req.query.nombre;
     var venta =  req.query.venta;
-    if(venta){var booleanVenta = venta.toLowerCase() ==  "true";};//Pequeño truco para convertir en booleano real
+    //if(venta){var booleanVenta = venta.toLowerCase() ==  "true";}//Pequeño truco para convertir en booleano real
 
     var precio = req.query.precio || 0 ;
     var tag = req.query.tag;
@@ -34,9 +34,11 @@ router.get('/', function(req, res, next){
         
         criteria.nombre = new RegExp(nombre +'*',"i") ;
     }
-    if(venta){criteria.venta = booleanVenta};
+    if(venta){
+        criteria.venta = venta.toLowerCase() ==  "true";
+        }
     
-    if(tag){criteria.tags = {"$regex": tag, $options: "i"}};
+    if(tag){criteria.tags = {"$regex": tag, $options: "i"};}
     
     if(precio){
 
@@ -45,10 +47,10 @@ router.get('/', function(req, res, next){
 
         if(precio.indexOf(guion) > -1){//Si no contiene guion devolvera -1 si es mayor si lo contiene
 
-            if(precio.indexOf(guion) == 0){criteria.precio = {$lte: precio.substr(1)}}
+            if(precio.indexOf(guion) === 0){criteria.precio = {$lte: precio.substr(1)};}
             //si es igual a cero esta lo primero
             else
-            if(precio.indexOf(guion) == tamanoPrecio-1) {criteria.precio = {$gte: precio.substr(0,tamanoPrecio-1)}}
+            if(precio.indexOf(guion) == tamanoPrecio-1) {criteria.precio = {$gte: precio.substr(0,tamanoPrecio-1)};}
             //Si es igual al tamaño del string -1 esta al final
 
             else{//Entonces esta en medio jejeje
@@ -61,8 +63,8 @@ router.get('/', function(req, res, next){
             
         }else{
             criteria.precio=precio;
-        };
-    };
+        }
+    }
 
 
 console.log(criteria.precio);
@@ -80,7 +82,7 @@ console.log(criteria.precio);
 //-------------------------------------------------------------------//
 //Post donde subimos anuncios nuevos
 
-router.post('/', function (req, res, next) {
+router.post('/', function (req, res) {
 
     var anuncio = new Anuncio(req.body);
     var lowerCaseVenta = req.body.venta;
@@ -93,10 +95,10 @@ router.post('/', function (req, res, next) {
             return;
         }
         res.json({success: true, save: saved});
-    })
+    });
 
 
-})
+});
 
 
 module.exports = router;
