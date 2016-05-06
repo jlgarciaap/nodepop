@@ -84,12 +84,20 @@ router.post('/', function (req, res) {
 
     var anuncio = new Anuncio(req.body);
     var lowerCaseVenta = req.body.venta;
+    if(!lowerCaseVenta || !req.body.nombre || !req.body.precio || !req.body.foto || !req.body.tags){
+        
+        res.json({Error: 'Todos los parametros son obligatorios'});
+        return;
+        
+    }
+
     anuncio.venta = lowerCaseVenta.toLowerCase() == "true";
-    console.log(anuncio.venta);
+
+    anuncio.foto = '/images/anuncio/'+ anuncio.foto;
     
     anuncio.save(function (err, saved) {
         if (err){
-            console.log(err);
+            console.log('Faltan datos',err);
             return;
         }
         res.json({success: true, save: saved});
