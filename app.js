@@ -31,6 +31,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public/images/anuncios')));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Obtengo el lenguaje leyendo cabecera x-lang
+app.use((req, res, next) => {
+  req.lang = req.get('x-lang') || 'en';
+  next();
+});
+
+
 app.use('/', require('./routes/index'));
 app.use('/register', require('./routes/api/v1/register'));
 app.use('/login', require('./routes/api/v1/login'));

@@ -6,6 +6,8 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Register = mongoose.model('User');
 
+
+
 var hash= require('hash.js');
 
 /* GET home page. */
@@ -23,13 +25,11 @@ router.post('/', function(req, res) {
         }
         
         res.json({success: true, save: saved});
+        
     });
 
 });
 
-//Aqui seria hacer un push de esto
- //   nombre: String,
- //   email: String,
- //   clave: String
+
 
 module.exports = router;

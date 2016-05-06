@@ -65,9 +65,7 @@ router.get('/', function(req, res){
             criteria.precio=precio;
         }
     }
-
-
-console.log(criteria.precio);
+    
 
     Anuncio.list(criteria, start, limit, sort, function (err, rows) {
 

@@ -14,4 +14,12 @@ var usuarioSchema = mongoose.Schema({
 
 usuarioSchema.index({'email':1}, { unique: true});
 
-mongoose.model('User',usuarioSchema);
+usuarioSchema.statics.registerTokenFind = function (email, callbackTokenFind) {
+
+    var query = userModel.find(email);
+    
+    return query.exec(callbackTokenFind);
+
+};
+
+var userModel =mongoose.model('User',usuarioSchema);
