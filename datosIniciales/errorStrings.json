@@ -1,0 +1,24 @@
+{
+  "spanishError":{
+    "error1": "Fallo en la autenticacion ",
+    "error2": "Fallo en la autenticacion usuario no encontrado",
+    "error3": "Fallo en la autenticacion contraseña no incorrecta",
+    "error4": "Servicio no disponible intentelo de nuevo mas tarde",
+    "error5": "Todos los parámetros son necesarios",
+    "error6": "Error al guardar datos, por favor inténtelo de nuevo mas tarde",
+    "error7": "Ahora mismo los invitados no tienen acceso al contenido, intentelo mas tarde"
+
+
+  },
+  "englishError": {
+    "error1": "Auth Failed",
+    "error2": "Auth Failed user not found",
+    "error3": "Auth Failed incorrect password",
+    "error4": "Service unavailable, try again later",
+    "error5": "All parameters are needed",
+    "error6": "Error saving data, please try again later",
+    "error7": "Now the guests do not have access to content try again later"
+
+  }
+
+}

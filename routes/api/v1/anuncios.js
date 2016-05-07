@@ -14,29 +14,37 @@ var jwtAuth = require('../../../lib/jwtAuth');
 router.use(jwtAuth());
 
 //----------------------------------------------------------------//
+    //errores
+
+var errorCall = require('../../../lib/errors');
+
 
 router.get('/', function(req, res){
 
     var nombre = req.query.nombre;
     var venta =  req.query.venta;
-    //if(venta){var booleanVenta = venta.toLowerCase() ==  "true";}//Pequeño truco para convertir en booleano real
-
     var precio = req.query.precio || 0 ;
     var tag = req.query.tag;
     var start = parseInt(req.query.start) || 0; //estos tienen que ser numericos para que funcionen por eso el parseInt
     var limit = parseInt(req.query.limit) || null;
     var sort = req.query.sort || null;
+    var total = '';
 
-
+    var lang = req.lang;
     var criteria = {};
 
     if(typeof nombre != 'undefined'){
         
         criteria.nombre = new RegExp(nombre +'*',"i") ;
     }
+
     if(venta){
         criteria.venta = venta.toLowerCase() ==  "true";
         }
+
+    if(req.query.includeTotal){
+     total = req.query.includeTotal.toLowerCase() ==  "true";
+    }
     
     if(tag){criteria.tags = {"$regex": tag, $options: "i"};}
     
@@ -67,12 +75,24 @@ router.get('/', function(req, res){
     }
     
 
-    Anuncio.list(criteria, start, limit, sort, function (err, rows) {
-
+    Anuncio.list(criteria, start, limit, sort, total, function (err, rows, totalCount) {
+        var error = '';
         if(err){
-            return res.json({success:false, error: err}); //en lugar de usar el next devolvemos un mensaje de error mas legible
+            error = 'error4';
+            errorCall(lang,error, function(errorRecibido){
+
+                return res.status(503).json({success: false, error: errorRecibido});
+            });
         }
-        res.json({success:true, rows: rows});
+
+        if(!total){
+           return res.json({success:true, rows: rows});
+        }
+        totalCount= rows.length;
+
+       return res.json({success:true, rows: rows, total: totalCount});
+
+
     });
 
 });
@@ -81,28 +101,36 @@ router.get('/', function(req, res){
 //Post donde subimos anuncios nuevos
 
 router.post('/', function (req, res) {
-
+    
     var anuncio = new Anuncio(req.body);
     var lowerCaseVenta = req.body.venta;
-    if(!lowerCaseVenta || !req.body.nombre || !req.body.precio || !req.body.foto || !req.body.tags){
-        
-        res.json({Error: 'Todos los parametros son obligatorios'});
-        return;
-        
-    }
-
-    anuncio.venta = lowerCaseVenta.toLowerCase() == "true";
-
-    anuncio.foto = '/images/anuncio/'+ anuncio.foto;
+    var error = '';
+    var lang = req.lang;
     
-    anuncio.save(function (err, saved) {
-        if (err){
-            console.log('Faltan datos',err);
-            return;
-        }
-        res.json({success: true, save: saved});
-    });
+    if(!lowerCaseVenta || !req.body.nombre || !req.body.precio || !req.body.foto || !req.body.tags){
 
+        error = 'error5';
+        errorCall(lang,error, function(errorRecibido){
+
+            return res.status(400).json({success: false, error: errorRecibido});
+        });
+    } else {
+
+        anuncio.venta = lowerCaseVenta.toLowerCase() == "true";
+
+        anuncio.foto = '/images/anuncio/' + anuncio.foto;
+
+        anuncio.save(function (err, saved) {
+            if (err) {
+                error = 'error6';
+                errorCall(lang, error, function (errorRecibido) {
+
+                    return res.status(500).json({success: false, error: errorRecibido});
+                });
+            }
+            res.json({success: true, save: saved});
+        });
+    }
 
 });
 

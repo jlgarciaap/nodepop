@@ -12,12 +12,14 @@ var anuncioSchema = mongoose.Schema({
 
 });
 
-anuncioSchema.statics.list = function (filter,start, limit, sort,  callbackAnuncio) {
+anuncioSchema.statics.list = function (filter,start, limit, sort,includeTotal, callbackAnuncio) {
 
     var query = AnuncioModel.find(filter);
     query.skip(start);//que se salte los registros que me digan
     query.limit(limit);//limite de registros a partir de los registros que nos han dicho antes
     query.sort(sort);
+    query.includeTotal = includeTotal;
+    
 
     return query.exec(callbackAnuncio);//tema promesas
 
