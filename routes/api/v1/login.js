@@ -73,7 +73,7 @@ router.post('/', function(req, res) {
                 }
 
 
-                res.json({success: true, token: token, tokenPUSH: saved.token});
+                res.json({success: true, token: token, tokenPUSH: saved.token, plataforma: saved.plataforma});
             });
             //Termina el tokenMoment
         } //--------------------------------------------------------//
