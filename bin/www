@@ -17,6 +17,24 @@ var http = require('http');
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
+var cluster = require('cluster');
+
+if(cluster.isMaster){
+  //Soy el master, voy a lanzar mis clones
+  
+  var numCPUS = require('os').cpus().length;
+  
+  console.log(`Hay ${numCPUS} cpus.`);
+  
+  for(var i= 0; i<numCPUS; i++){
+    
+    cluster.fork();
+    
+  }
+  
+  
+}else {
+
 /**
  * Create HTTP server.
  */
@@ -34,7 +52,7 @@ server.on('listening', onListening);
 /**
  * Normalize a port into a number, string, or false.
  */
-
+}
 function normalizePort(val) {
   var port = parseInt(val, 10);
 
