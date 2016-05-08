@@ -19,18 +19,21 @@ router.use(jwtAuth());
 var errorCall = require('../../../lib/errors');
 
 
+//-------------------------------------------------------//
+    //Metodo get que devuelve lista de anuncios segun unos parametros pasados por query
 router.get('/', function(req, res){
 
     var nombre = req.query.nombre;
     var venta =  req.query.venta;
     var precio = req.query.precio || 0 ;
     var tag = req.query.tag;
-    var start = parseInt(req.query.start) || 0; //estos tienen que ser numericos para que funcionen por eso el parseInt
+    var start = parseInt(req.query.start) || 0; 
     var limit = parseInt(req.query.limit) || null;
     var sort = req.query.sort || null;
     var total = '';
 
-    var lang = req.lang;
+    var lang = req.lang;//para capturar el lenguaje en el header
+    
     var criteria = {};
 
     if(typeof nombre != 'undefined'){
@@ -49,7 +52,7 @@ router.get('/', function(req, res){
     if(tag){criteria.tags = {"$regex": tag, $options: "i"};}
     
     if(precio){
-
+        //Aplicamos unos filtros segun caracteristicas especiales pasadas en la query del precio
         var guion = '-';
         var tamanoPrecio = precio.length;
 
@@ -74,6 +77,7 @@ router.get('/', function(req, res){
         }
     }
     
+    //A continuacion realizamos la busqueda con el metodo estatico que teniamos generado en el modelo de anuncio
 
     Anuncio.list(criteria, start, limit, sort, total, function (err, rows, totalCount) {
         var error = '';

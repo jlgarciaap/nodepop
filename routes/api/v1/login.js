@@ -7,8 +7,8 @@ var mongoose = require('mongoose');
 var Login = mongoose.model('User');//con esto ya tenemos el modelo cargado
 
 var TokenPushUser = mongoose.model('PushToken');//Modelo para token de usuario
-var userAgent = require('useragent-lite');
-var pushToken = require('rand-token');
+var userAgent = require('useragent-lite');//modulo para controlar la plataforma del usuario
+var pushToken = require('rand-token');//modulo que genera token de push
 
 var hash = require('hash.js');
 var jwt = require('jsonwebtoken');
@@ -16,12 +16,14 @@ var secret = require('../../../local_config');
 
 var errorCall = require('../../../lib/errors');
 
-
+//Metodo post para realizar login
 router.post('/', function(req, res) {
+    //recogemos datos
     var email = req.body.email;
     var pass = hash.sha512().update(req.body.pass).digest('hex');
     var device= userAgent(req.headers["user-agent"]).device;
     var platform= userAgent(req.headers["user-agent"]).platform;
+    
     var lang = req.lang;
     var error = '';
     
@@ -50,7 +52,9 @@ router.post('/', function(req, res) {
             var token = jwt.sign({id: user1._id}, secret.jwt.secret, {expiresIn: "2days"});
 
             var tokenPushUser = new TokenPushUser();
+            
 
+            
             tokenPushUser.email = user1.email;
             if (device == "Android") {
                 tokenPushUser.plataforma = 'android';
@@ -82,7 +86,7 @@ router.post('/', function(req, res) {
     
 });
 
-
+//Metodo post para realizar login como invitado
 router.post('/guest', function(req, res) {
 
     var device= userAgent(req.headers["user-agent"]).device;
@@ -122,7 +126,7 @@ router.post('/guest', function(req, res) {
             errorCall(lang,error, function(errorRecibido){
 
                 return res.status(401).json({success: false, Importante: errorRecibido, guest: saved.email,
-                    tokenPUSH: saved.token, platform: saved.plataforma});
+                    tokenPUSH: saved.token, platform: tokenPushUser.plataforma});
             });
 
         });

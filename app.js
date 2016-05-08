@@ -39,9 +39,9 @@ app.use((req, res, next) => {
 
 
 app.use('/', require('./routes/index'));
-app.use('/register', require('./routes/api/v1/register'));
-app.use('/login', require('./routes/api/v1/login'));
-app.use('/anuncios', require('./routes/api/v1/anuncios'));
+app.use('/api/v1/register', require('./routes/api/v1/register'));
+app.use('/api/v1/login', require('./routes/api/v1/login'));
+app.use('/api/v1/anuncios', require('./routes/api/v1/anuncios'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

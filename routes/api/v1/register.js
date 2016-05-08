@@ -10,7 +10,7 @@ var errorCall = require('../../../lib/errors');
 
 var hash= require('hash.js');
 
-/* GET home page. */
+//Metodo post donde realizamos el registro del usuario pasandole en el body nombre, email y pass
 router.post('/', function(req, res) {
     
     var lang = req.lang;
@@ -18,22 +18,31 @@ router.post('/', function(req, res) {
     
     var register = new Register(req.body);
     
-    
-    register.clave = hash.sha512().update(register.clave).digest('hex');
+    if(!register.nombre || !register.email || !register.pass) {
 
-    register.save(function(err, saved){
-        
-        if(err){
-            error = 'error6';
-            errorCall(lang, error, function (errorRecibido) {
+        error = 'error5';
+        errorCall(lang, error, function (errorRecibido) {
 
-                return res.status(500).json({success: false, error: errorRecibido});
-            });
-        }
-        
-        return res.json({success: true, save: saved});
-        
-    });
+            return res.status(500).json({success: false, error: errorRecibido});
+
+        });
+    }else {
+        register.pass = hash.sha512().update(register.pass).digest('hex');
+
+        register.save(function (err, saved) {
+
+            if (err) {
+                error = 'error6';
+                errorCall(lang, error, function (errorRecibido) {
+
+                    return res.status(500).json({success: false, error: errorRecibido});
+                });
+            } else {
+
+                return res.json({success: true, save: saved});
+            }
+        });
+    }
 
 });
 

@@ -12,6 +12,7 @@ var anuncioSchema = mongoose.Schema({
 
 });
 
+//Metodo que usamos para realizar la busqueda en la base de datos segun unos criterios
 anuncioSchema.statics.list = function (filter,start, limit, sort,includeTotal, callbackAnuncio) {
 
     var query = AnuncioModel.find(filter);
