@@ -32,17 +32,19 @@ base de datos si existe y carga los datos iniciales del fichero
     **Importante** Todas las rutas estan bajo **/api/v1/**.Y antes de empezar a usar la aplicación es necesario realizar al **login** si se es un usuario
     registrado o registrarse para poder obtener el **token de autentación**. Este es necesario pasarlo como query o en el body con **token**, o
     tambien es posible pasarlo en el header con **x-access-token**.
+    
+    * **"/"** En la ruta principal: Tenemos este mismo mini tutorial. Lo que hace es llamar a router/index.js
 
-    *  **/api/v1/register**:/Users/Legionet/Desktop/KeepCoding/Node/Nodepop/nodepop/Readme.md
+    *  **/register**:/Users/Legionet/Desktop/KeepCoding/Node/Nodepop/nodepop/Readme.md
         * **Método POST**: En este punto podemos realizar lo conveniente al registro, pasando en el body parametros
      de **nombre**, **email** y **pass**(la contrasela se almacenara en la base de datos encriptada en un HASH).
 
-    * **/api/v1/login**:
+    * **/login**:
         * **Método POST**: Pasariamos en el body parametros de autenticacion. Por defecto eon el usuario que hemos
         creado antes. **email**: popadmin@nodepop.com, **pass**: 123456 esto si es correcto nos devolvera un **token
         de autenticación**(el cual necesitamos pasar siempre como query en la url) y tambien nos aparece el **token de PUSH**
 
-    * **/api/v1/login/guest**:
+    * **/login/guest**:
         * **Método POST**: tenemos disponible tambien la opcion de entrar como **invitados**, ahora mismo la API
     como tal no ofrece nada a estos usuarios, es decir, no tienen acceso pero como tal de momento, generamos
     un **token de PUSH** para posibles necesidades futuras y tambien detectamos la **plataforma del usuario**
