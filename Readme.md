@@ -33,16 +33,16 @@ base de datos si existe y carga los datos iniciales del fichero
     registrado o registrarse para poder obtener el **token de autentación**. Este es necesario pasarlo como query o en el body con **token**, o
     tambien es posible pasarlo en el header con **x-access-token**.
 
-    *  **/register**:/Users/Legionet/Desktop/KeepCoding/Node/Nodepop/nodepop/Readme.md
+    *  **/api/v1/register**:/Users/Legionet/Desktop/KeepCoding/Node/Nodepop/nodepop/Readme.md
         * **Método POST**: En este punto podemos realizar lo conveniente al registro, pasando en el body parametros
      de **nombre**, **email** y **pass**(la contrasela se almacenara en la base de datos encriptada en un HASH).
 
-    * **/login**:
+    * **/api/v1/login**:
         * **Método POST**: Pasariamos en el body parametros de autenticacion. Por defecto eon el usuario que hemos
         creado antes. **email**: popadmin@nodepop.com, **pass**: 123456 esto si es correcto nos devolvera un **token
         de autenticación**(el cual necesitamos pasar siempre como query en la url) y tambien nos aparece el **token de PUSH**
 
-    * **/login/guest**:
+    * **/api/v1/login/guest**:
         * **Método POST**: tenemos disponible tambien la opcion de entrar como **invitados**, ahora mismo la API
     como tal no ofrece nada a estos usuarios, es decir, no tienen acceso pero como tal de momento, generamos
     un **token de PUSH** para posibles necesidades futuras y tambien detectamos la **plataforma del usuario**
