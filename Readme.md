@@ -33,8 +33,6 @@ base de datos si existe y carga los datos iniciales del fichero
     registrado o registrarse para poder obtener el **token de autentación**. Este es necesario pasarlo como query o en el body con **token**, o
     tambien es posible pasarlo en el header con **x-access-token**.
 
-    * **"/"** **En la ruta principal**: Tenemos este mismo mini tutorial. Lo que hace es llamar a **router/index.js**
-
     *  **/register**:/Users/Legionet/Desktop/KeepCoding/Node/Nodepop/nodepop/Readme.md
         * **Método POST**: En este punto podemos realizar lo conveniente al registro, pasando en el body parametros
      de **nombre**, **email** y **pass**(la contrasela se almacenara en la base de datos encriptada en un HASH).
