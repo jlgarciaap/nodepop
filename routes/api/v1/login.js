@@ -59,7 +59,7 @@ router.post('/', function(req, res) {
             if (device == "Android") {
                 tokenPushUser.plataforma = 'android';
             }
-            if (device == "iPad" || "iPhone" && platform != "Desktop") {
+            if (device == ("iPad" || "iPhone") && platform != "Desktop") {
 
                 tokenPushUser.plataforma = 'ios';
             }
