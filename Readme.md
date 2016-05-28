@@ -85,3 +85,4 @@ base de datos si existe y carga los datos iniciales del fichero
     ,ya sea como usuario registrado o invitado se detecta el dispositivo y se almacena en la base datos junto con el email que se registró, y un **tokenPush** identificativo.
     * **AUTENTICACION**: Para la autenticación usamos JSON Web Token, este realiza el proceso de autenticación. Todo esta en el fichero **/lib/jwtAuth.js**. Para este proceso se
      usa una palabra secreta que pondriamos nosotros para evitar que el token fuera igual al de otra API. Esta palabra esta almacenada en el fichero **local_config.js**
+    * **USER-AGENT**: Para la correcta detección de los dispositivos, una vez que realizamos el npm install de los paquetes que estan en JSON, es necesario reemplazar el archivo **useragent-lite.js** que se encontrará en **node_modules/useragent-lite/lib** por el que esta en la raiz del repositorio.
