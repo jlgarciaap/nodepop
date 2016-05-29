@@ -86,3 +86,14 @@ base de datos si existe y carga los datos iniciales del fichero
     * **AUTENTICACION**: Para la autenticación usamos JSON Web Token, este realiza el proceso de autenticación. Todo esta en el fichero **/lib/jwtAuth.js**. Para este proceso se
      usa una palabra secreta que pondriamos nosotros para evitar que el token fuera igual al de otra API. Esta palabra esta almacenada en el fichero **local_config.js**
     * **USER-AGENT**: Para la correcta detección de los dispositivos, una vez que realizamos el npm install de los paquetes que estan en JSON, es necesario reemplazar el archivo **useragent-lite.js** que se encontrará en **node_modules/useragent-lite/lib** por el que esta en la raiz del repositorio.
+
+<h2>Practica 2</h2>
+   La API como tal esta subida en el servidor con nombre **nodepop.styleapps.es** siguiendo la misma configuración que pone mas arriba. Para comprobar los estáticos si no se quiere realizar un GET:
+   * http://nodepop.styleapps.es/images/anuncios/bicicleta.jpg
+   * http://nodepop.styleapps.es/images/anuncios/iphone.png
+   
+   Tanto por IP: **5.189.178.45** como por el nombre principal del dominio styleapps.es, nos aparecia la web principal.
+   
+   Los estáticos en ambos casos los devuelve **NGINX** como caché.
+   Y en ambos servicios se controlan los 404, si se quiere ver solo es necesario poner una url no existente(sorpresita).
+
