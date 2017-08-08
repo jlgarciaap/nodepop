@@ -7,7 +7,7 @@ por defecto **27017**.
 Para poder pobrar la aplicación se recomiendo descargar el repositorio, hacer **npm install** para instalar los modulos necesarios para
 su funcionamiento y ejecutar **npm run installDB** para crear una base de datos con datos específicos.(Apartado**inicializar Base de datos**)
 
-* **Arranque normal**= nodemon, apunta a node
+* **Arranque normal**= npm run start, apunta a node
 ./bin/www puerto **3000**.
 
 * **Arranque debug**= npm run debug , apunta a
